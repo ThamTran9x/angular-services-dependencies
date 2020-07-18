@@ -10,10 +10,11 @@ import { AccountsService } from '../shared/accounts.service';
 
 })
 export class AccountComponent {
-  @Input() account: {name: string, status: string};
-  @Input() id: number;
-  @Output() statusChanged = new EventEmitter<{id: number, newStatus: string}>();
-
+   @Input() account: {name: string, status: string};
+   @Input() id: number;
+  // @Output() statusChanged = new EventEmitter<{id: number, newStatus: string}>();
+  accountName: string;
+  status: string;
   constructor(
     private loggingService: LoggingService,
     private accountsService: AccountsService) {}
@@ -21,6 +22,6 @@ export class AccountComponent {
   onSetTo(status: string) {
     this.accountsService.updateStatus(this.id, status);
     // this.loggingService.logStatusChange(status);
-
+    this.accountsService.statusUpdated.emit(status);
   }
 }
